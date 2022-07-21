@@ -21,7 +21,9 @@ Config.webhookName = '911 Calls by asciidude'
 Config.webhookImage = '' -- The icon of the webhook, unsure if this works
 Config.webhookStartNotify = false -- Notify once the script starts
 
--- Try not to create too many categories
+-------------------------------------------------------------------------------------------------------
+-- DO NOT USE YET: I HAVE NOT RELEASED CATEGORIES, THIS SCRIPT WILL NOT WORK IF YOU SET THIS TO TRUE --
+-------------------------------------------------------------------------------------------------------
 Config.useCategories = false -- False: Kinda like /911 <reason>, true: force player to select from a category
 Config.categories = {
     'Operator Call',
