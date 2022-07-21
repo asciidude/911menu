@@ -2,6 +2,7 @@ message = ''
 input = false
 
 _menuPool = NativeUI.CreatePool()
+
 mainMenu = NativeUI.CreateMenu(Config.menuName, Config.menuDescription, nil, nil, nil, nil, nil, 255, 255, 255, 210)
 _menuPool:Add(mainMenu)
 

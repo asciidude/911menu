@@ -1,6 +1,6 @@
 RegisterServerEvent('SubmitWebhook')
 AddEventHandler("SubmitWebhook", function(message, category, source)
-    SendToWebhook(message .. '\n*Call from ID ' .. source .. '*', category, true)
+    SendToWebhook(message .. '\n*Call from ' .. source .. ' at ' .. os.date("%c") ..'*', category, true)
 end)
 
 RegisterServerEvent('SubmitMessage')
