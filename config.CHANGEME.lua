@@ -2,7 +2,7 @@
     Rename this file to config.lua :)
 
     THIS SCRIPT DEPENDS ON NATIVEUILUA-RELOADED
-    FOUND HERE: https://github.com/MrMathias154/NativeUILua-Reloaded
+    FOUND HERE: https://github.com/FrazzIe/NativeUILua
     ^ MUST BE NAMED NativeUI
 
     THIS SCRIPT __ALSO__ DEPENDS ON nearest-postal BY DevBlocky IF YOU
