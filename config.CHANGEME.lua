@@ -5,6 +5,10 @@
     FOUND HERE: https://github.com/MrMathias154/NativeUILua-Reloaded
     ^ MUST BE NAMED NativeUI
 
+    THIS SCRIPT __ALSO__ DEPENDS ON nearest-postal BY DevBlocky IF YOU
+    ARE USING CATEGORIES! https://github.com/DevBlocky/nearest-postal
+    ^ RESOURCE MUST BE NAMED nearest-postal
+
     DO NOT REUPLOAD WITHOUT MY PERMISSION
     asciidude#0001 on Discord for any support-related issues
 ]]--
@@ -12,24 +16,25 @@
 Config = {}
 
 Config.commandName = '911'
+Config.restrictCommand = false -- WARNING: UNTESTED FEATURE, ACE permission: emergencymenu.open (add_ace group.civ emergencymenu.open allow)
+Config.noPermissionMessage = '~r~Sorry, you aren\'t allowed to open this menu!' -- Set to false to disable, this wont be used if restrictCommand is set to false
+
 Config.menuName = '911 Menu'
 Config.menuDescription = '~b~Report emergencies here'
 
 Config.useDiscord = true -- If true, it will NOT use in-game chat. I highly recommend turning this to true
-Config.webhookURL = '' -- The webhook of the channel to send to
+Config.webhookURL = 'https://discord.com/api/webhooks/999524839515770920/ASmxt0y0nzPeNlb6-31hCsXipRSIstAs6-MxnqM-f8JsWMMvNxXrt5nZWwQ1qFEMhSDd' -- The webhook of the channel to send to
 Config.webhookName = '911 Calls by asciidude'
-Config.webhookImage = '' -- The icon of the webhook, unsure if this works
+Config.webhookImage = '' -- The icon of the webhook
 Config.webhookStartNotify = false -- Notify once the script starts
 
--------------------------------------------------------------------------------------------------------
--- DO NOT USE YET: I HAVE NOT RELEASED CATEGORIES, THIS SCRIPT WILL NOT WORK IF YOU SET THIS TO TRUE --
--------------------------------------------------------------------------------------------------------
-Config.useCategories = false -- False: Kinda like /911 <reason>, true: force player to select from a category
+-- Categories means that the server MUST have postals installed, as it will say "[911 | <Reporter> (<ID>)] <Category Name> at <Postal>", eg "Noise Disturbance at 2000"
+Config.useCategories = true -- Setting to false will basically make this /911 <reason> in menu-form
 Config.categories = {
     'Operator Call',
     'Abandoned Automobile',
     'Store/Bank Alarm',
     'Animal Bite',
     'Animal Cruelty',
-    'Other'
+    'Other' -- I really recommend keeping an "Other" category :p
 }

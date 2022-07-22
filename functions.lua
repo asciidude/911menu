@@ -1,4 +1,4 @@
-function SendToWebhook(message, category, call)
+function SendToWebhook(message, call) -- Server only
     if message == nil or message == '' then
         return 'Unable to send empty message'
     end
@@ -36,7 +36,7 @@ function SendToWebhook(message, category, call)
             'POST',
             json.encode({
                 username = Config.webhookName,
-                content = '**911 Call Recieved | ' .. category .. ':** ' .. message,
+                content = '**911 Call Recieved:**\n' .. message,
                 icon = Config.webhookImage
             }),
             {['Content-Type'] = 'application/json'}
