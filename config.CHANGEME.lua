@@ -23,9 +23,9 @@ Config.menuName = '911 Menu'
 Config.menuDescription = '~b~Report emergencies here'
 
 Config.useDiscord = true -- If true, it will NOT use in-game chat. I highly recommend turning this to true
-Config.webhookURL = 'https://discord.com/api/webhooks/999524839515770920/ASmxt0y0nzPeNlb6-31hCsXipRSIstAs6-MxnqM-f8JsWMMvNxXrt5nZWwQ1qFEMhSDd' -- The webhook of the channel to send to
+Config.webhookURL = 'https://discord.com/api/webhooks/guild_id/webhook_token' -- The webhook of the channel to send to
 Config.webhookName = '911 Calls by asciidude'
-Config.webhookImage = '' -- The icon of the webhook
+Config.webhookImage = '' -- The icon of the webhook, not sure if this works xD
 Config.webhookStartNotify = false -- Notify once the script starts
 
 -- Categories means that the server MUST have postals installed, as it will say "[911 | <Reporter> (<ID>)] <Category Name> at <Postal>", eg "Noise Disturbance at 2000"
