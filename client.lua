@@ -22,8 +22,9 @@ if Config.useCategories then
         table.insert(
             categories,
             {
-                NativeUI.CreateItem(category, '~b~Submit a call about (a/an) ' .. category),
-                category
+                NativeUI.CreateItem(category[1], '~b~Submit a call about (a/an) ' .. category[1]),
+                category[1],
+                category[2]
             }
         )
     end
@@ -35,14 +36,51 @@ if Config.useCategories then
         for _, catItem in ipairs(categories) do
             if item == catItem[1] then
                 if Config.useDiscord then
-                    TriggerServerEvent('SubmitWebhook', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
-                    TriggerEvent('chat:addMessage', {
-                        color = { 255, 0, 0 },
-                        multiline = true,
-                        args = {'[Dispatch]', 'Your call has been recieved and the authorities are on the way!'}
-                    })
+                    if catItem[3] then
+                        input = true
+                        DisplayOnscreenKeyboard(false, 'FMMC_KEY_TIP8', '', '', '', '', '', 64)
+
+                        Citizen.CreateThread(function()
+                            while true do
+                                Citizen.Wait(0)
+                                if input == false then
+                                    TriggerServerEvent('SubmitWebhook', catItem[2] .. ' at ' .. postal .. ': ' .. message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                                    TriggerEvent('chat:addMessage', {
+                                        color = { 255, 0, 0 },
+                                        multiline = true,
+                                        args = {'[Dispatch]', 'Your call has been recieved and the authorities are on the way!'}
+                                    })
+
+                                    break
+                                end
+                            end
+                        end)
+                    else
+                        TriggerServerEvent('SubmitWebhook', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                        TriggerEvent('chat:addMessage', {
+                            color = { 255, 0, 0 },
+                            multiline = true,
+                            args = {'[Dispatch]', 'Your call has been recieved and the authorities are on the way!'}
+                        })
+                    end
                 else
-                    TriggerServerEvent('SubmitMessage', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                    if catItem[3] then
+                        input = true
+                        DisplayOnscreenKeyboard(false, 'FMMC_KEY_TIP8', '', '', '', '', '', 64)
+
+                        Citizen.CreateThread(function()
+                            while true do
+                                Citizen.Wait(0)
+                                if input == false then
+                                    TriggerServerEvent('SubmitMessage', catItem[2] .. ' at ' .. postal .. ": " .. message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+    
+                                    break
+                                end
+                            end
+                        end)
+                    else
+                        TriggerServerEvent('SubmitMessage', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                    end
                 end
 
                 break -- Break out the loop for obvious performance reasons
