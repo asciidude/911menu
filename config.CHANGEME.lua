@@ -36,5 +36,10 @@ Config.categories = {
     'Store/Bank Alarm',
     'Animal Bite',
     'Animal Cruelty',
+    'Automobile Burglary',
+    'Automobile Theft',
+    'Sexual Assult',
+    'Fire/Arson',
+    'Assult',
     'Other' -- I really recommend keeping an "Other" category :p
 }
