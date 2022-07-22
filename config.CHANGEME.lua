@@ -22,7 +22,7 @@ Config.noPermissionMessage = '~r~Sorry, you aren\'t allowed to open this menu!' 
 Config.menuName = '911 Menu'
 Config.menuDescription = '~b~Report emergencies here'
 
-Config.useDiscord = true -- If true, it will NOT use in-game chat. I highly recommend turning this to true
+Config.useDiscord = false -- If true, it will NOT use in-game chat. I highly recommend turning this to true
 Config.webhookURL = 'https://discord.com/api/webhooks/guild_id/webhook_token' -- The webhook of the channel to send to
 Config.webhookName = '911 Calls by asciidude'
 Config.webhookImage = '' -- The icon of the webhook, not sure if this works xD
