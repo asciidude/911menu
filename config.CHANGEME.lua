@@ -22,8 +22,16 @@ Config.noPermissionMessage = '~r~Sorry, you aren\'t allowed to open this menu!' 
 Config.menuName = '911 Menu'
 Config.menuDescription = '~b~Report emergencies here'
 
-Config.useDiscord = true -- If true, it will NOT use in-game chat. I highly recommend turning this to true
-Config.webhookURL = 'https://discord.com/api/webhooks/999524839515770920/ASmxt0y0nzPeNlb6-31hCsXipRSIstAs6-MxnqM-f8JsWMMvNxXrt5nZWwQ1qFEMhSDd' -- The webhook of the channel to send to
+--[[
+    useDiscord must be set to false for emergencycalls to work
+    Setting to true: disables global emergency calls, sends only to people with the ACE permission "emergencymenu.emergencycalls"
+    Setting to false: enables global emergency calls (not recommended)
+]]--
+
+Config.emergencycalls = true
+
+Config.useDiscord = false -- If true, it will NOT use in-game chat. I highly recommend turning this to true
+Config.webhookURL = 'https://discord.com/api/webhooks/guild_id/webhook_token' -- The webhook of the channel to send to
 Config.webhookName = '911 Calls by asciidude'
 Config.webhookImage = '' -- The icon of the webhook
 Config.webhookStartNotify = false -- Notify once the script starts

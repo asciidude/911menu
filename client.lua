@@ -5,7 +5,7 @@ input = false
 
 _menuPool = NativeUI.CreatePool()
 
-mainMenu = NativeUI.CreateMenu(Config.menuName, Config.menuDescription, nil, nil, nil, nil, nil, 255, 255, 255, 210)
+mainMenu = NativeUI.CreateMenu(Config.menuName, Config.menuDescription)
 _menuPool:Add(mainMenu)
 
 if Config.useCategories then
@@ -18,6 +18,7 @@ if Config.useCategories then
     end)
 
     categories = {}
+
     for _, category in ipairs(Config.categories) do
         table.insert(
             categories,
@@ -28,7 +29,6 @@ if Config.useCategories then
             }
         )
     end
-
 
     for _, catItem in ipairs(categories) do mainMenu:AddItem(catItem[1]) end
 
@@ -54,6 +54,8 @@ if Config.useCategories then
                                     break
                                 end
                             end
+                            
+                            return
                         end)
                     else
                         TriggerServerEvent('SubmitWebhook', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
@@ -73,13 +75,31 @@ if Config.useCategories then
                                 Citizen.Wait(0)
                                 if input == false then
                                     TriggerServerEvent('SubmitMessage', catItem[2] .. ' at ' .. postal .. ": " .. message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
-    
+                                    
+                                    if Config.emergencycalls then
+                                        TriggerEvent('chat:addMessage', {
+                                            color = { 255, 0, 0 },
+                                            multiline = true,
+                                            args = {'[Dispatch]', 'Your call has been recieved and the authorities are on the way!'}
+                                        })
+                                    end
+
                                     break
                                 end
                             end
+                            
+                            return
                         end)
                     else
                         TriggerServerEvent('SubmitMessage', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+
+                        if Config.emergencycalls then
+                            TriggerEvent('chat:addMessage', {
+                                color = { 255, 0, 0 },
+                                multiline = true,
+                                args = {'[Dispatch]', 'Your call has been recieved and the authorities are on the way!'}
+                            })
+                        end
                     end
                 end
 
@@ -110,6 +130,14 @@ else
                 })
             else
                 TriggerServerEvent('SubmitMessage', message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                
+                if Config.emergencycalls == false then
+                    TriggerEvent('chat:addMessage', {
+                        color = { 255, 0, 0 },
+                        multiline = true,
+                        args = {'[Dispatch]', 'Your call has been recieved and the authorities are on the way!'}
+                    })
+                end
             end
         end
     end
@@ -145,9 +173,9 @@ end)
 
 RegisterCommand('911', function(source, args)
     if Config.restrictCommand then
-        TriggerServerEvent('emergencymenu.isAllowed')
+        TriggerServerEvent('emergencymenu.isAllowed', GetPlayerServerId(PlayerId()))
 
-        if allowed then
+        if allowed == false then
             if Config.noPermissionMessage ~= false then
                 TriggerEvent('chat:addMessage', {
                     color = { 255, 0, 0 },
@@ -166,4 +194,10 @@ end)
 RegisterNetEvent('emergencymenu.isAllowed_return')
 AddEventHandler('emergencymenu.isAllowed_return', function(isAllowed)
     allowed = isAllowed
+end)
+
+AddEventHandler('playerSpawned', function()
+    if Config.emergencycalls then
+        TriggerServerEvent('Load911Chat', GetPlayerServerId(PlayerId()))
+    end
 end)
