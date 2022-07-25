@@ -1,7 +1,7 @@
 --[[
     THIS SCRIPT DEPENDS ON NATIVEUILUA-RELOADED
     FOUND HERE: https://github.com/FrazzIe/NativeUILua
-    ^ MUST BE NAMED NativeUI
+    ^ RESOURCE MUST BE NAMED NativeUI
 
     THIS SCRIPT __ALSO__ DEPENDS ON nearest-postal BY DevBlocky IF YOU
     ARE USING CATEGORIES! https://github.com/DevBlocky/nearest-postal

@@ -199,12 +199,6 @@ AddEventHandler('emergencymenu.isAllowed_return', function(isAllowed)
     allowed = isAllowed
 end)
 
-AddEventHandler('playerSpawned', function()
-    if Config.emergencycalls then
-        TriggerServerEvent('emergencymenu.load911chat', GetPlayerServerId(PlayerId()))
-    end
-end)
-
 RegisterNetEvent('emergencymenu.addBlip')
 AddEventHandler('emergencymenu.addBlip', function()
     local playerPos = GetEntityCoords(GetPlayerPed(-1))
@@ -216,4 +210,16 @@ end)
 RegisterNetEvent('emergencymenu.removeBlip')
 AddEventHandler('emergencymenu.removeBlip', function(blip)
     RemoveBlip(blip)
+end)
+
+AddEventHandler('playerSpawned', function()
+    if Config.emergencycalls then
+        TriggerServerEvent('emergencymenu.load911chat', GetPlayerServerId(PlayerId()))
+    end
+end)
+
+AddEventHandler('playerDropped', function()
+    if Config.enableBlips then
+        TriggerServerEvent('emergencymenu.removePlayerBlip', blip, GetPlayerServerId(PlayerId()))
+    end
 end)

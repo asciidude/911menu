@@ -63,6 +63,20 @@ AddEventHandler('emergencymenu.appendBlip', function(blip, source)
     })
 end)
 
+RegisterServerEvent('emergencymenu.removePlayerBlip')
+AddEventHandler('emergencymenu.removePlayerBlip', function(blip, source)
+    local identifier = GetPlayerIdentifiers(source)[1]
+
+    for i, t_blip in ipairs(blips) do
+        if t_blip.identifier == identifier then
+            TriggerClientEvent('emergencymenu.removeBlip', -1, t_blip.blip)
+            table.remove(blips, i)
+
+            break
+        end
+    end
+end)
+
 RegisterServerEvent('emergencymenu.isAllowed')
 AddEventHandler('emergencymenu.isAllowed', function(source)
     if IsPlayerAceAllowed(source, 'emergencymenu.open') then
