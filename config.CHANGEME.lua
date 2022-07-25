@@ -33,7 +33,7 @@ Config.emergencycalls = true
 
 -- This will work with emergency calls permission along with global chats
 -- This creates a blip at any call locations, postals still being provided
--- WARNING: There is no way to delete these blips, but they will delete every 911 call from the same member
+-- WARNING: These blips delete after every new 911 call from the same member and any time the player is dropped (aka leaves)
 Config.enableBlips = true
 Config.blipID = 57 -- The blip to show, https://docs.fivem.net/docs/game-references/blips/#BlipColors
 Config.blipColor = 3 -- The blip color, shown at the bottom of this page ^
