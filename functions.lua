@@ -49,3 +49,16 @@ function Notify(message)
     AddTextComponentString(text)
     DrawNotification(false, false)
 end
+
+function AddBlip(title, id, coords, color)
+    local blip = AddBlipForCoord(coords[1], coords[2], coords[3])
+    SetBlipSprite(blip, id)
+    SetBlipDisplay(blip, 2)
+    SetBlipScale(blip, 0.8)
+    SetBlipColour(blip, color)
+    SetBlipAsShortRange(blip, true)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString(title)
+    EndTextCommandSetBlipName(blip)
+    return blip
+end

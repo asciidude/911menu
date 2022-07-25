@@ -26,9 +26,17 @@ Config.menuDescription = '~b~Report emergencies here'
     useDiscord must be set to false for emergencycalls to work
     Setting to true: disables global emergency calls, sends only to people with the ACE permission "emergencymenu.emergencycalls"
     Setting to false: enables global emergency calls (not recommended)
+    Restarting this script means any emergency call members must restart their game
 ]]--
 
 Config.emergencycalls = true
+
+-- This will work with emergency calls permission along with global chats
+-- This creates a blip at any call locations, postals still being provided
+-- WARNING: There is no way to delete these blips, but they will delete every 911 call from the same member
+Config.enableBlips = true
+Config.blipID = 57 -- The blip to show, https://docs.fivem.net/docs/game-references/blips/#BlipColors
+Config.blipColor = 3 -- The blip color, shown at the bottom of this page ^
 
 Config.useDiscord = false -- If true, it will NOT use in-game chat. I highly recommend turning this to true
 Config.webhookURL = 'https://discord.com/api/webhooks/guild_id/webhook_token' -- The webhook of the channel to send to
@@ -47,20 +55,16 @@ Config.categories = {
     ]]--
 
     {
-        'Operator Call',
+        'High Priority Call',
         true
     },
     {
-        'Abandoned Automobile',
-        false
+        'Medium Priority Call',
+        true
     },
     {
-        'Store/Bank Alarm',
-        false
-    },
-    {
-        'Animal Bite',
-        false
+        'Low Priority Call',
+        true
     },
     {
         -- I really recommend keeping this "Other" category :p

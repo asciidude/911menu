@@ -4,6 +4,9 @@ message = ''
 input = false
 
 _menuPool = NativeUI.CreatePool()
+_menuPool:MouseControlsEnabled(false)
+_menuPool:MouseEdgeEnabled(false)
+_menuPool:ControlDisablingEnabled(false)
 
 mainMenu = NativeUI.CreateMenu(Config.menuName, Config.menuDescription)
 _menuPool:Add(mainMenu)
@@ -44,7 +47,7 @@ if Config.useCategories then
                             while true do
                                 Citizen.Wait(0)
                                 if input == false then
-                                    TriggerServerEvent('SubmitWebhook', catItem[2] .. ' at ' .. postal .. ': ' .. message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                                    TriggerServerEvent('emergencymenu.submitWebhook', catItem[2] .. ' at ' .. postal .. ': ' .. message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
                                     TriggerEvent('chat:addMessage', {
                                         color = { 255, 0, 0 },
                                         multiline = true,
@@ -58,7 +61,7 @@ if Config.useCategories then
                             return
                         end)
                     else
-                        TriggerServerEvent('SubmitWebhook', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                        TriggerServerEvent('emergencymenu.submitWebhook', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
                         TriggerEvent('chat:addMessage', {
                             color = { 255, 0, 0 },
                             multiline = true,
@@ -74,7 +77,7 @@ if Config.useCategories then
                             while true do
                                 Citizen.Wait(0)
                                 if input == false then
-                                    TriggerServerEvent('SubmitMessage', catItem[2] .. ' at ' .. postal .. ": " .. message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                                    TriggerServerEvent('emergencymenu.submitMessage', catItem[2] .. ' at ' .. postal .. ": " .. message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
                                     
                                     if Config.emergencycalls then
                                         TriggerEvent('chat:addMessage', {
@@ -91,7 +94,7 @@ if Config.useCategories then
                             return
                         end)
                     else
-                        TriggerServerEvent('SubmitMessage', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                        TriggerServerEvent('emergencymenu.submitMessage', catItem[2] .. ' at ' .. postal, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
 
                         if Config.emergencycalls then
                             TriggerEvent('chat:addMessage', {
@@ -122,14 +125,14 @@ else
 
         if item == submit then
             if Config.useDiscord then
-                TriggerServerEvent('SubmitWebhook', message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                TriggerServerEvent('emergencymenu.submitWebhook', message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
                 TriggerEvent('chat:addMessage', {
                     color = { 255, 0, 0 },
                     multiline = true,
                     args = {'[Dispatch]', 'Your call has been recieved and the authorities are on the way!'}
                 })
             else
-                TriggerServerEvent('SubmitMessage', message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
+                TriggerServerEvent('emergencymenu.submitMessage', message, GetPlayerName(PlayerId()) .. ' (' .. GetPlayerServerId(PlayerId()) .. ')')
                 
                 if Config.emergencycalls == false then
                     TriggerEvent('chat:addMessage', {
@@ -171,7 +174,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterCommand(Config.commandName, function(source, args)
+RegisterCommand('911', function(source, args)
     if Config.restrictCommand then
         TriggerServerEvent('emergencymenu.isAllowed', GetPlayerServerId(PlayerId()))
 
@@ -198,6 +201,19 @@ end)
 
 AddEventHandler('playerSpawned', function()
     if Config.emergencycalls then
-        TriggerServerEvent('Load911Chat', GetPlayerServerId(PlayerId()))
+        TriggerServerEvent('emergencymenu.load911chat', GetPlayerServerId(PlayerId()))
     end
+end)
+
+RegisterNetEvent('emergencymenu.addBlip')
+AddEventHandler('emergencymenu.addBlip', function()
+    local playerPos = GetEntityCoords(GetPlayerPed(-1))
+    local playerName = GetPlayerName(PlayerId())
+    local blip = AddBlip(playerName .. '\'s 911 Call', Config.blipID, playerPos, Config.blipColor)
+    TriggerServerEvent('emergencymenu.appendBlip', blip, GetPlayerServerId(PlayerId()))
+end)
+
+RegisterNetEvent('emergencymenu.removeBlip')
+AddEventHandler('emergencymenu.removeBlip', function(blip)
+    RemoveBlip(blip)
 end)

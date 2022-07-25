@@ -1,16 +1,66 @@
 callmembers = {}
+blips = {} -- Check if members license is the same, if so remove blip
 
-RegisterServerEvent('Load911Chat')
-RegisterServerEvent('Load911Chat', function(id)
+RegisterServerEvent('emergencymenu.load911chat')
+RegisterServerEvent('emergencymenu.load911chat', function(id)
     if IsPlayerAceAllowed(id, 'emergencymenu.emergencycalls') then
         table.insert(callmembers, id)
-        print('cm ' .. callmembers)
     end
 end)
 
-RegisterServerEvent('SubmitWebhook')
+RegisterServerEvent('emergencymenu.submitWebhook')
 AddEventHandler('SubmitWebhook', function(message, source, call)
     SendToWebhook(message .. '\n*Call from ' .. source .. ' at ' .. os.date('%c') .. '*', true)
+
+    if Config.emergencycalls then
+        for _, id in ipairs(callmembers) do
+            TriggerClientEvent('emergencymenu.addBlip', id)
+        end
+    else
+        TriggerClientEvent('emergencymenu.addBlip', -1)
+    end
+end)
+
+RegisterServerEvent('emergencymenu.submitMessage')
+AddEventHandler('emergencymenu.submitMessage', function(message, source)
+    if Config.emergencycalls then
+        for _, id in ipairs(callmembers) do
+            TriggerClientEvent('chat:addMessage', id, {
+                color = { 255, 0, 0 },
+                multiline = true,
+                args = {'[911 | ' .. source .. ']', message}
+            })
+
+            TriggerClientEvent('emergencymenu.addBlip', id)
+        end
+    else
+        TriggerClientEvent('chat:addMessage', -1, {
+            color = { 255, 0, 0 },
+            multiline = true,
+            args = {'[911 | ' .. source ..']', message}
+        })
+
+        TriggerClientEvent('emergencymenu.addBlip', -1)
+    end
+end)
+
+RegisterServerEvent('emergencymenu.appendBlip')
+AddEventHandler('emergencymenu.appendBlip', function(blip, source)
+    local identifier = GetPlayerIdentifiers(source)[1]
+
+    for i, t_blip in ipairs(blips) do
+        if t_blip.identifier == identifier then
+            TriggerClientEvent('emergencymenu.removeBlip', -1, t_blip.blip)
+            table.remove(blips, i)
+
+            break
+        end
+    end
+
+    table.insert(blips, {
+        ['identifier'] = identifier,
+        ['blip'] = blip
+    })
 end)
 
 RegisterServerEvent('emergencymenu.isAllowed')
@@ -19,25 +69,6 @@ AddEventHandler('emergencymenu.isAllowed', function(source)
         TriggerClientEvent('emergencymenu.isAllowed_return', source, true)
     else
         TriggerClientEvent('emergencymenu.isAllowed_return', source, false)
-    end
-end)
-
-RegisterServerEvent('SubmitMessage')
-AddEventHandler('SubmitMessage', function(message, source)
-    if Config.emergencycalls then
-        for id in ipairs(callmembers) do
-            TriggerClientEvent('chat:addMessage', id, {
-                color = { 255, 0, 0 },
-                multiline = true,
-                args = {'[911 | ' .. source .. ']', message}
-            })
-        end
-    else
-        TriggerClientEvent('chat:addMessage', -1, {
-            color = { 255, 0, 0 },
-            multiline = true,
-            args = {'[911 | ' .. source ..']', message}
-        })
     end
 end)
 
