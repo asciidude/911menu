@@ -10,37 +10,42 @@ end)
 
 RegisterServerEvent('emergencymenu.submitWebhook')
 AddEventHandler('SubmitWebhook', function(message, source, call)
-    SendToWebhook(message .. '\n*Call from ' .. source .. ' at ' .. os.date('%c') .. '*', true)
+    SendToWebhook(message .. '\n*Call from ' .. GetPlayerName(source) .. ' (' .. source .. ') ' .. ' at ' .. os.date('%c') .. '*', true)
+    local playerPos = GetEntityCoords(GetPlayerPed(source))
+    local playerName = GetPlayerName(source)
 
     if Config.emergencycalls then
         for _, id in ipairs(callmembers) do
-            TriggerClientEvent('emergencymenu.addBlip', id)
+            TriggerClientEvent('emergencymenu.addBlip', id, playerName, playerPos, source)
         end
     else
-        TriggerClientEvent('emergencymenu.addBlip', -1)
+        TriggerClientEvent('emergencymenu.addBlip', -1, playerName, playerPos, source)
     end
 end)
 
 RegisterServerEvent('emergencymenu.submitMessage')
 AddEventHandler('emergencymenu.submitMessage', function(message, source)
+    local playerPos = GetEntityCoords(GetPlayerPed(source))
+    local playerName = GetPlayerName(source)
+
     if Config.emergencycalls then
         for _, id in ipairs(callmembers) do
             TriggerClientEvent('chat:addMessage', id, {
                 color = { 255, 0, 0 },
                 multiline = true,
-                args = {'^4911 | ' .. source, message}
+                args = {'^4911 | ' .. GetPlayerName(source) .. ' (' .. source .. ')', message}
             })
 
-            TriggerClientEvent('emergencymenu.addBlip', id)
+            TriggerClientEvent('emergencymenu.addBlip', id, playerName, playerPos, source)
         end
     else
         TriggerClientEvent('chat:addMessage', -1, {
             color = { 255, 0, 0 },
             multiline = true,
-            args = {'^4911 | ' .. source, message}
+            args = {'^4911 | ' .. GetPlayerName(source) .. ' (' .. source .. ')', message}
         })
 
-        TriggerClientEvent('emergencymenu.addBlip', -1)
+        TriggerClientEvent('emergencymenu.addBlip', -1, playerName, playerPos, source)
     end
 end)
 
@@ -64,7 +69,7 @@ AddEventHandler('emergencymenu.appendBlip', function(blip, source)
 end)
 
 RegisterServerEvent('emergencymenu.removePlayerBlip')
-AddEventHandler('emergencymenu.removePlayerBlip', function(blip, source)
+AddEventHandler('emergencymenu.removePlayerBlip', function(source)
     local identifier = GetPlayerIdentifiers(source)[1]
 
     for i, t_blip in ipairs(blips) do

@@ -29,7 +29,7 @@ Config.menuDescription = '~b~Report emergencies here'
     Restarting this script means any emergency call members must restart their game
 ]]--
 
-Config.emergencycalls = true
+Config.emergencycalls = false
 
 -- This will work with emergency calls permission along with global chats
 -- This creates a blip at any call locations, postals still being provided
@@ -39,7 +39,7 @@ Config.blipID = 57 -- The blip to show, https://docs.fivem.net/docs/game-referen
 Config.blipColor = 3 -- The blip color, shown at the bottom of this page ^
 
 Config.useDiscord = false -- If true, it will NOT use in-game chat. I highly recommend turning this to true
-Config.webhookURL = 'https://discord.com/api/webhooks/guild_id/webhook_token' -- The webhook of the channel to send to
+Config.webhookURL = 'https://discord.com/api/webhooks/999524839515770920/ASmxt0y0nzPeNlb6-31hCsXipRSIstAs6-MxnqM-f8JsWMMvNxXrt5nZWwQ1qFEMhSDd' -- The webhook of the channel to send to
 Config.webhookName = '911 Calls by asciidude'
 Config.webhookImage = '' -- The icon of the webhook
 Config.webhookStartNotify = false -- Notify once the script starts
