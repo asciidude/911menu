@@ -28,7 +28,7 @@ AddEventHandler('emergencymenu.submitMessage', function(message, source)
             TriggerClientEvent('chat:addMessage', id, {
                 color = { 255, 0, 0 },
                 multiline = true,
-                args = {'^4911 | ' .. source .. '', message}
+                args = {'^4911 | ' .. source, message}
             })
 
             TriggerClientEvent('emergencymenu.addBlip', id)
@@ -37,7 +37,7 @@ AddEventHandler('emergencymenu.submitMessage', function(message, source)
         TriggerClientEvent('chat:addMessage', -1, {
             color = { 255, 0, 0 },
             multiline = true,
-            args = {'^4911 | ' .. source ..'', message}
+            args = {'^4911 | ' .. source, message}
         })
 
         TriggerClientEvent('emergencymenu.addBlip', -1)
