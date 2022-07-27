@@ -174,7 +174,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterCommand('call911', function(source, args)
+RegisterCommand(Config.commandName, function(source, args)
     if Config.restrictCommand then
         TriggerServerEvent('emergencymenu.isAllowed', GetPlayerServerId(PlayerId()))
 
