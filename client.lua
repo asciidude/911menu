@@ -16,7 +16,7 @@ if Config.useCategories then
     Citizen.CreateThread(function()
         while true do
             Citizen.Wait(0)
-            postal = exports['ncsrp_postal']:getPostal()
+            postal = exports['nearest-postal']:getPostal()
         end
     end)
 
