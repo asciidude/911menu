@@ -16,7 +16,7 @@ if Config.useCategories then
     Citizen.CreateThread(function()
         while true do
             Citizen.Wait(0)
-            postal = exports['nearest-postal']:getPostal()
+            postal = exports['ncsrp_postal']:getPostal()
         end
     end)
 
@@ -174,7 +174,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterCommand('911', function(source, args)
+RegisterCommand('call911', function(source, args)
     if Config.restrictCommand then
         TriggerServerEvent('emergencymenu.isAllowed', GetPlayerServerId(PlayerId()))
 
@@ -219,6 +219,10 @@ AddEventHandler('playerSpawned', function()
 end)
 
 AddEventHandler('playerDropped', function()
+    if Config.emergencycalls then
+        TriggerServerEvent('emergencymenu.removeCallMember', GetPlayerServerId(PlayerId()))
+    end
+
     if Config.enableBlips then
         TriggerServerEvent('emergencymenu.removePlayerBlip', blip, GetPlayerServerId(PlayerId()))
     end
