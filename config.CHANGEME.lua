@@ -33,13 +33,13 @@ Config.emergencycalls = false
 
 -- This will work with emergency calls permission along with global chats
 -- This creates a blip at any call locations, postals still being provided
--- WARNING: These blips delete after every new 911 call from the same member and any time the player is dropped (aka leaves)
+-- WARNING: There is no way to delete these blips, but they will delete every 911 call from the same member
 Config.enableBlips = true
 Config.blipID = 57 -- The blip to show, https://docs.fivem.net/docs/game-references/blips/#BlipColors
 Config.blipColor = 3 -- The blip color, shown at the bottom of this page ^
 
 Config.useDiscord = false -- If true, it will NOT use in-game chat. I highly recommend turning this to true
-Config.webhookURL = 'https://discord.com/api/webhooks/999524839515770920/ASmxt0y0nzPeNlb6-31hCsXipRSIstAs6-MxnqM-f8JsWMMvNxXrt5nZWwQ1qFEMhSDd' -- The webhook of the channel to send to
+Config.webhookURL = 'https://discord.com/api/webhooks/guild_id/webhook_token' -- The webhook of the channel to send to
 Config.webhookName = '911 Calls by asciidude'
 Config.webhookImage = '' -- The icon of the webhook
 Config.webhookStartNotify = false -- Notify once the script starts
@@ -55,16 +55,20 @@ Config.categories = {
     ]]--
 
     {
-        'High Priority Call',
+        'Emergency Call',
         true
     },
     {
-        'Medium Priority Call',
+        'Non Emergency Call',
         true
     },
     {
-        'Low Priority Call',
-        true
+        'Store/Bank Robbery (Armed)',
+        false
+    },
+    {
+        'Store/Bank Robbery (Unarmed)',
+        false
     },
     {
         -- I really recommend keeping this "Other" category :p
