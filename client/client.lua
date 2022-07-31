@@ -164,9 +164,7 @@ end)
 
 RegisterNetEvent('emergencymenu.removeBlip')
 AddEventHandler('emergencymenu.removeBlip', function(blip)
-    if Config.enableBlips then
-        TriggerServerEvent('emergencymenu.removePlayerBlip', GetPlayerServerId(PlayerId()))
-    end
+    RemoveBlip(blip)
 end)
 
 -- Load/unload call member upon join/disconnect

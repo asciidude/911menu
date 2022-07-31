@@ -18,9 +18,11 @@ Config = {}
 Config.commandName = '911'
 Config.restrictCommand = false -- WARNING: UNTESTED FEATURE, ACE permission: emergencymenu.open (add_ace group.civ emergencymenu.open allow)
 Config.noPermissionMessage = '~r~Sorry, you aren\'t allowed to open this menu!' -- Set to false to disable, this wont be used if restrictCommand is set to false
+Config.useCommandDescription = true -- Will automatically match to your commandName set
+Config.commandDescription = 'Load the 911 menu created by asciidude' -- What to show the user upon typing the command name
 
 Config.menuName = '911 Menu'
-Config.menuDescription = '~b~Report emergencies here'
+Config.menuDescription = '~b~Report emergencies here or use the non-emergency line'
 
 --[[
     useDiscord must be set to false for emergencycalls to work
@@ -29,13 +31,13 @@ Config.menuDescription = '~b~Report emergencies here'
     Restarting this script means any emergency call members must restart their game
 ]]--
 
-Config.emergencycalls = false
+Config.emergencycalls = true
 
 -- This will work with emergency calls permission along with global chats
 -- This creates a blip at any call locations, postals still being provided
 -- WARNING: There is no way to delete these blips, but they will delete every 911 call from the same member
 Config.enableBlips = true
-Config.blipID = 57 -- The blip to show, https://docs.fivem.net/docs/game-references/blips/#BlipColors
+Config.blipID = 304 -- The blip to show, https://docs.fivem.net/docs/game-references/blips/#BlipColors (default is a star)
 Config.blipColor = 3 -- The blip color, shown at the bottom of this page ^
 
 Config.useDiscord = false -- If true, it will NOT use in-game chat. I highly recommend turning this to true
@@ -63,7 +65,11 @@ Config.categories = {
         true
     },
     {
-        'Store/Bank Robbery (Armed)',
+        'Store/Bank Robbery (Armed / Hostages)',
+        false
+    },
+    {
+        'Store/Bank Robbery (Armed / No Hostages)',
         false
     },
     {
